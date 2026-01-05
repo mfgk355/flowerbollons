@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FloriBalloon | Premium Boutique</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://i.ibb.co">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -30,7 +33,7 @@
         nav a { color: #fff; text-decoration: none; margin-left: 30px; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
         header.scrolled nav a { color: #333; }
 
-        /* ГЛАВНЫЙ БАННЕР - КРАСНЫЙ ШЕЛК (ФЛАГ) */
+        /* HERO SECTION */
         .hero-silk {
             height: 100vh;
             background: var(--silk-gradient);
@@ -45,7 +48,7 @@
             100% { background-position: 0% 50%; }
         }
         .hero-content { text-align: center; color: white; z-index: 10; }
-        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 10vw, 7.5rem); margin: 0; font-style: italic; text-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 10vw, 7.5rem); margin: 0; font-style: italic; }
         .hero-content p { letter-spacing: 12px; text-transform: uppercase; margin-top: 25px; font-weight: 200; opacity: 0.9; }
 
         /* КАТЕГОРИЙНЫЕ БАННЕРЫ С ЭФФЕКТОМ СТЕКЛА */
@@ -54,35 +57,21 @@
             background-attachment: fixed; background-position: center; background-size: cover;
             position: relative; margin-top: 40px;
         }
-        
         .cat-title-wrapper {
             background: var(--glass-bg);
             backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
             padding: 50px 120px;
             border-radius: 30px;
             border: 1px solid var(--glass-border);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
             text-align: center;
-            transition: 0.4s;
         }
-        .cat-title-wrapper:hover {
-            transform: scale(1.02);
-            background: rgba(255, 255, 255, 0.3);
-        }
-        .cat-title { 
-            margin: 0;
-            font-family: 'Playfair Display', serif; 
-            font-size: 4rem; 
-            color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
+        .cat-title { margin: 0; font-family: 'Playfair Display', serif; font-size: 4rem; color: #fff; }
 
         .bg-flowers { background-image: url('https://i.ibb.co/d4FbLqZN/Gemini-Generated-Image-1bb4p71bb4p71bb4.png'); }
         .bg-balloons { background-image: url('https://i.ibb.co/1fnwG8h0/Gemini-Generated-Image-h39otlh39otlh39o.png'); }
         .bg-toys { background-image: url('https://i.ibb.co/fzF7fpG6/Gemini-Generated-Image-z4q8qiz4q8qiz4q8.png'); }
 
-        /* ГРИД ТОВАРОВ */
+        /* ТОВАРЫ */
         .container { max-width: 1500px; margin: 0 auto; padding: 100px 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 60px; }
         
@@ -90,9 +79,15 @@
             background: #fff; border-radius: 50px; overflow: hidden; 
             transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid #f0f0f0; padding: 15px;
         }
-        .card:hover { transform: translateY(-20px); box-shadow: 0 40px 80px rgba(158, 27, 50, 0.12); }
-        .img-wrap { width: 100%; height: 480px; border-radius: 40px; overflow: hidden; background: #fcfcfc; }
-        .card img { width: 100%; height: 100%; object-fit: cover; }
+        .card:hover { transform: translateY(-15px); box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        .img-wrap { width: 100%; height: 480px; border-radius: 40px; overflow: hidden; background: #f9f9f9; position: relative; }
+        
+        /* Плавное проявление картинок */
+        .card img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            opacity: 0; transition: opacity 0.8s ease-in-out; 
+        }
+        .card img.loaded { opacity: 1; }
 
         .info { padding: 35px; text-align: center; }
         .info h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin: 0 0 15px; font-weight: 400; }
@@ -101,19 +96,19 @@
         .btn-buy {
             background: var(--deep-red); color: white; border: none;
             padding: 20px 60px; border-radius: 100px; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 4px; font-size: 0.8rem; transition: 0.4s;
+            text-transform: uppercase; letter-spacing: 4px; font-size: 0.8rem;
         }
-        .btn-buy:hover { background: #7b0d1e; transform: scale(1.05); }
-
-        /* ФУТЕР */
-        .footer { background: #fffafb; padding: 120px 5%; text-align: center; border-radius: 120px 120px 0 0; }
 
         /* КОРЗИНА */
         #cart-panel {
-            position: fixed; right: -500px; top: 0; width: 500px; height: 100vh;
-            background: white; z-index: 3000; transition: 0.7s; padding: 60px; box-shadow: -25px 0 70px rgba(0,0,0,0.15);
+            position: fixed; right: -550px; top: 0; width: 500px; height: 100vh;
+            background: white; z-index: 3000; transition: 0.6s cubic-bezier(0.77, 0, 0.175, 1); 
+            padding: 60px; box-shadow: -20px 0 50px rgba(0,0,0,0.2);
         }
         #cart-panel.active { right: 0; }
+
+        /* ФУТЕР */
+        .footer { background: #fffafb; padding: 120px 5%; text-align: center; border-radius: 120px 120px 0 0; }
     </style>
 </head>
 <body>
@@ -136,31 +131,19 @@
 </section>
 
 <div class="cat-banner bg-flowers" id="flowers">
-    <div class="cat-title-wrapper">
-        <h2 class="cat-title">Цветы</h2>
-    </div>
+    <div class="cat-title-wrapper"><h2 class="cat-title">Цветы</h2></div>
 </div>
-<div class="container">
-    <div class="grid" id="grid-flowers"></div>
-</div>
+<div class="container"><div class="grid" id="grid-flowers"></div></div>
 
 <div class="cat-banner bg-balloons" id="balloons">
-    <div class="cat-title-wrapper">
-        <h2 class="cat-title">Шары</h2>
-    </div>
+    <div class="cat-title-wrapper"><h2 class="cat-title">Шары</h2></div>
 </div>
-<div class="container">
-    <div class="grid" id="grid-balloons"></div>
-</div>
+<div class="container"><div class="grid" id="grid-balloons"></div></div>
 
 <div class="cat-banner bg-toys" id="toys">
-    <div class="cat-title-wrapper">
-        <h2 class="cat-title">Игрушки</h2>
-    </div>
+    <div class="cat-title-wrapper"><h2 class="cat-title">Игрушки</h2></div>
 </div>
-<div class="container">
-    <div class="grid" id="grid-toys"></div>
-</div>
+<div class="container"><div class="grid" id="grid-toys"></div></div>
 
 <footer class="footer">
     <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--deep-red);">FloriBalloon Boutique</h2>
@@ -173,13 +156,12 @@
 <div id="cart-panel">
     <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem;">Корзина</h2>
     <div id="cart-items" style="margin-top: 50px;"></div>
-    <div style="margin-top: 50px; border-top: 2px solid #eee; padding-top: 30px;">
+    <div style="margin-top: auto; border-top: 2px solid #eee; padding-top: 30px;">
         <div style="display:flex; justify-content:space-between; font-size: 2rem;">
-            <span>Итого:</span>
-            <span><span id="total">0</span> ₽</span>
+            <span>Итого:</span><span><span id="total">0</span> ₽</span>
         </div>
         <button class="btn-buy" style="width:100%; margin-top:50px;" onclick="alert('Заказ принят!')">Заказать</button>
-        <p onclick="toggleCart(false)" style="text-align:center; margin-top:30px; color:#aaa; cursor:pointer; text-transform:uppercase;">Закрыть</p>
+        <p onclick="toggleCart(false)" style="text-align:center; margin-top:30px; color:#aaa; cursor:pointer;">Закрыть</p>
     </div>
 </div>
 
@@ -189,39 +171,38 @@
     const imgToys = "https://i.ibb.co/fzF7fpG6/Gemini-Generated-Image-z4q8qiz4q8qiz4q8.png";
 
     const products = [
-        // ЦВЕТЫ
-        { cat: 'flowers', name: "Цветочная композиция №1", price: 5000, img: imgFlowers },
-        { cat: 'flowers', name: "Цветочная композиция №2", price: 6000, img: imgFlowers },
-        { cat: 'flowers', name: "Цветочная композиция №3", price: 4500, img: imgFlowers },
-        { cat: 'flowers', name: "Цветочная композиция №4", price: 3200, img: imgFlowers },
-        { cat: 'flowers', name: "Цветочная композиция №5", price: 7000, img: imgFlowers },
-        { cat: 'flowers', name: "Цветочная композиция №6", price: 2900, img: imgFlowers },
-        { cat: 'flowers', name: "Цветочная композиция №7", price: 8500, img: imgFlowers },
+        { cat: 'flowers', name: "Цветы №1", price: 5000, img: imgFlowers },
+        { cat: 'flowers', name: "Цветы №2", price: 6000, img: imgFlowers },
+        { cat: 'flowers', name: "Цветы №3", price: 4500, img: imgFlowers },
+        { cat: 'flowers', name: "Цветы №4", price: 3200, img: imgFlowers },
+        { cat: 'flowers', name: "Цветы №5", price: 7000, img: imgFlowers },
+        { cat: 'flowers', name: "Цветы №6", price: 2900, img: imgFlowers },
+        { cat: 'flowers', name: "Цветы №7", price: 8500, img: imgFlowers },
 
-        // ШАРЫ
-        { cat: 'balloons', name: "Набор шаров №1", price: 2500, img: imgBalloons },
-        { cat: 'balloons', name: "Набор шаров №2", price: 3000, img: imgBalloons },
-        { cat: 'balloons', name: "Набор шаров №3", price: 1900, img: imgBalloons },
-        { cat: 'balloons', name: "Набор шаров №4", price: 2700, img: imgBalloons },
-        { cat: 'balloons', name: "Набор шаров №5", price: 3100, img: imgBalloons },
-        { cat: 'balloons', name: "Набор шаров №6", price: 4000, img: imgBalloons },
-        { cat: 'balloons', name: "Набор шаров №7", price: 2200, img: imgBalloons },
+        { cat: 'balloons', name: "Шары №1", price: 2500, img: imgBalloons },
+        { cat: 'balloons', name: "Шары №2", price: 3000, img: imgBalloons },
+        { cat: 'balloons', name: "Шары №3", price: 1900, img: imgBalloons },
+        { cat: 'balloons', name: "Шары №4", price: 2700, img: imgBalloons },
+        { cat: 'balloons', name: "Шары №5", price: 3100, img: imgBalloons },
+        { cat: 'balloons', name: "Шары №6", price: 4000, img: imgBalloons },
+        { cat: 'balloons', name: "Шары №7", price: 2200, img: imgBalloons },
 
-        // ИГРУШКИ
-        { cat: 'toys', name: "Мягкий подарок №1", price: 5200, img: imgToys },
-        { cat: 'toys', name: "Мягкий подарок №2", price: 3400, img: imgToys },
-        { cat: 'toys', name: "Мягкий подарок №3", price: 2900, img: imgToys },
-        { cat: 'toys', name: "Мягкий подарок №4", price: 3800, img: imgToys },
-        { cat: 'toys', name: "Мягкий подарок №5", price: 2600, img: imgToys },
-        { cat: 'toys', name: "Мягкий подарок №6", price: 2100, img: imgToys },
-        { cat: 'toys', name: "Мягкий подарок №7", price: 2300, img: imgToys }
+        { cat: 'toys', name: "Игрушка №1", price: 5200, img: imgToys },
+        { cat: 'toys', name: "Игрушка №2", price: 3400, img: imgToys },
+        { cat: 'toys', name: "Игрушка №3", price: 2900, img: imgToys },
+        { cat: 'toys', name: "Игрушка №4", price: 3800, img: imgToys },
+        { cat: 'toys', name: "Игрушка №5", price: 2600, img: imgToys },
+        { cat: 'toys', name: "Игрушка №6", price: 2100, img: imgToys },
+        { cat: 'toys', name: "Игрушка №7", price: 2300, img: imgToys }
     ];
 
     function init() {
         products.forEach(p => {
             document.getElementById('grid-' + p.cat).innerHTML += `
                 <div class="card">
-                    <div class="img-wrap"><img src="${p.img}"></div>
+                    <div class="img-wrap">
+                        <img src="${p.img}" alt="${p.name}" loading="lazy" onload="this.classList.add('loaded')">
+                    </div>
                     <div class="info">
                         <h3>${p.name}</h3>
                         <span class="price">${p.price} ₽</span>
